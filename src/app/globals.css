@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* --background: #ffffff; */
+  /* --foreground: #171717; */
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --highlight-color: #4ecdc4;
+}
+
+@font-face {
+  font-family: 'QuattrocentoSans';
+  font-weight: 400;
+  src: url('./fonts/QuattrocentoSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'QuattrocentoSans';
+  font-weight: 700;
+  src: url('./fonts/QuattrocentoSans-Bold.ttf') format('truetype');
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: QuattrocentoSans;
+  overflow-y: scroll;
+}
+
+html {
+  scroll-behavior: smooth;
+}

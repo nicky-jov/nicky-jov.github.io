@@ -1,0 +1,46 @@
+.arrowContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.arrow {
+  width: 32px;
+  height: 32px;
+  color: rgba(255, 255, 255, 0.3);
+  margin: -8px 0;
+  transform: scale(0.9);
+}
+
+.arrow1 {
+  animation: highlight1 3s infinite;
+}
+
+.arrow2 {
+  animation: highlight2 3s infinite;
+}
+
+.arrow3 {
+  animation: highlight3 3s infinite;
+}
+
+@keyframes highlight1 {
+  0%, 10%, 100% { color: rgba(255, 255, 255, 0.3); }
+  30%, 90% { color: #ffffff; transform: translateY(0); }
+  95% { transform: translateY(10px); }
+}
+
+@keyframes highlight2 {
+  0%, 30%, 100% { color: rgba(255, 255, 255, 0.3); }
+  50%, 90% { color: #ffffff; transform: translateY(0); }
+  95% { transform: translateY(10px); }
+}
+
+@keyframes highlight3 {
+  0%, 50%, 100% { color: rgba(255, 255, 255, 0.3); }
+  70%, 90% { color: #ffffff; transform: translateY(0); }
+  95% { transform: translateY(10px); }
+}

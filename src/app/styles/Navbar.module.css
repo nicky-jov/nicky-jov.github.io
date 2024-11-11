@@ -1,0 +1,136 @@
+.navbar {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background: rgba(13, 17, 23, 0.1);
+}
+
+.scrolled {
+    background: rgba(13, 17, 23, 0.4);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 5px 15px rgba(255, 115, 0, 0.1);
+}
+
+.logoSvg {
+    width: 60px;
+    height: 36px;
+}
+
+.logoPath {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: drawLogo 3s infinite alternate, glowLogo 5s infinite alternate;
+}
+
+@keyframes drawLogo {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes glowLogo {
+    from {
+        filter: drop-shadow(0 0 2px #ffffff);
+    }
+
+    to {
+        filter: drop-shadow(0 0 8px #ffffff);
+    }
+}
+
+.logo a {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.navLinks {
+    display: flex;
+    gap: 2rem;
+    padding: 5px 30px;
+    background: rgba(13, 17, 23, 0.4);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.navLinks:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navLinks a {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.5s ease;
+}
+
+.navLinks a:hover {
+    color: var(--highlight-color);
+    text-shadow: 0 0 3px var(--highlight-color);
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+
+    .navLinks {
+        display: none;
+    }
+}
+
+.centerSection {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.languageWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    background: rgba(13, 17, 23, 0.5);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.globeIcon {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.languageSelect {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px 4px;
+    outline: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.languageWrapper:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.languageSelectOption {
+    background: #1a1a1a;
+    color: white;
+}
