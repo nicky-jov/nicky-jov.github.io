@@ -3,12 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
+import { useTranslation } from '../contexts/LanguageContext';
 import { faGlobeAmericas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Navbar = () => {
+    const { language, setLanguage } = useTranslation();
     const [isScrolled, setIsScrolled] = useState(false);
-    const [language, setLanguage] = useState('EN');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -27,12 +28,10 @@ const Navbar = () => {
                   viewBox="0 0 100 60" 
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  {/* N */}
                   <path 
                     className={styles.logoPath}
                     d="M10 50V10h5l20 30V10h5v40h-5L15 20v30h-5z"
                   />
-                  {/* J */}
                   <path 
                     className={styles.logoPath}
                     d="M60 10h15v30c0 10-8 12-15 12s-15-2-15-12v-5h5v5c0 5 5 7 10 7s10-2 10-7V10z"
@@ -58,8 +57,8 @@ const Navbar = () => {
                         onChange={(e) => setLanguage(e.target.value)}
                         className={styles.languageSelect}
                     >
-                        <option className={styles.languageSelectOption} value="EN">EN</option>
-                        <option className={styles.languageSelectOption} value="JA">JA</option>
+                        <option className={styles.languageSelectOption} value="en">EN</option>
+                        <option className={styles.languageSelectOption} value="ja">JA</option>
                     </select>
                 </div>
             </div>

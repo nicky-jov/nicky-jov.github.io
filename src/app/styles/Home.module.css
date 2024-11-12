@@ -4,13 +4,14 @@
   position: relative;
 }
 
-/* Home.module.css */
 .starsContainer {
   position: fixed;
   width: 100%;
   height: 100%;
   z-index: -201;
   perspective: 1000px;
+  mix-blend-mode: screen;
+  filter: brightness(1.2) contrast(1.1);
 }
 
 .star {
@@ -83,9 +84,7 @@
   object-fit: cover;
   opacity: 0.8;
   mix-blend-mode: screen;
-  filter: 
-    hue-rotate(120deg)
-    contrast(1.1);
+  filter: hue-rotate(120deg);
   z-index: -20;
   will-change: transform;
   backface-visibility: hidden;

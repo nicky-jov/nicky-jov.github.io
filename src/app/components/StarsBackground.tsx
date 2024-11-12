@@ -12,9 +12,9 @@ const StarsBackground = () => {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const layers = 5;
+    const layers = 2;
     const starsPerLayer = 100;
-    const shootingStarCount = 5;
+    const shootingStarCount = 10;
 
     container.innerHTML = '';
 
@@ -103,7 +103,7 @@ const StarsBackground = () => {
 
     const layers = containerRef.current.getElementsByClassName(styles.starLayer);
     Array.from(layers).forEach((layer, index) => {
-      const strength = (index + 1) * 20;
+      const strength = (index + 1) * 10;
       const scrollStrength = (index + 1) * 0.1;
 
       (layer as HTMLElement).style.transform = `

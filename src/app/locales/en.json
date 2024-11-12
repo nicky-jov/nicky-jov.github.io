@@ -1,0 +1,18 @@
+{
+    "welcome": {
+        "greeting": "Hi, I'm",
+        "name": "Nicky",
+        "role": "Software Developer",
+        "subtitle": "Let's begin our journey to the",
+        "highlight": "galaxies",
+        "cta": "together and build something amazing with modern technologies."
+    },
+    "about": {
+        "title": "About Me",
+        "intro": "Hi, I'm",
+        "name": "Nicky Jovanus",
+        "location": ". A passionate Software Developer based in Indonesia.",
+        "specialization": "I specialize in developing exceptional digital experiences.",
+        "experience": "With several years of experience in web and game development, I'm always eager to learn new technologies and create innovative solutions."
+    }
+}

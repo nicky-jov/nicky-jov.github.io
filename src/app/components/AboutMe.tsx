@@ -5,9 +5,11 @@ import Image from 'next/image';
 import styles from '../styles/AboutMe.module.css';
 import homeStyles from '../styles/Home.module.css';
 import ScrollArrow from './ScrollArrow';
+import { useTranslation } from '../contexts/LanguageContext';
 
 const AboutMe = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsVisible(true);
@@ -15,6 +17,7 @@ const AboutMe = () => {
 
   return (
     <section id="about" className={styles.aboutSection}>
+      <div style={{ height: '2rem' }} />
       <div className={`${styles.content} ${isVisible ? styles.visible : ''}`}>
         <div className={styles.profileSection}>
           <div className={styles.imageContainer}>
@@ -42,15 +45,14 @@ const AboutMe = () => {
           </div>
         </div>
         <div className={styles.textContent}>
-          <h2 className={styles.title}>About Me</h2>
+          <h2 className={styles.title}>{t('about.title')}</h2>
           <p className={styles.description}>
-            Hi, I'm <span className={homeStyles.highlight}>Nicky Jovanus</span>. A passionate Software Developer based in <span className={homeStyles.highlight}>Indonesia</span>. <br />
-            I specialize in developing exceptional digital experiences. <br/>
-            With several years of experience in web and game development, I am always eager to learn new technologies
-            and create innovative solutions.
+            {t('about.intro')} <span className={homeStyles.highlight}>{t('about.name')}</span>{t('about.location')}<br/>
+            {t('about.specialization')} <br/>
+            {t('about.experience')}
           </p>
         </div>
-        <ScrollArrow targetId="target-section-id" />
+        <ScrollArrow targetId="projects" />
       </div>
     </section>
   );

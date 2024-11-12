@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { LanguageProvider } from './contexts/LanguageContext';
 import "./globals.css";
 
 const geistSans = localFont({
@@ -40,9 +41,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${quattrocentoSans.variable} font-quattrocento antialiased`}>
+    <body>
+      <LanguageProvider>
         {children}
-      </body>
+      </LanguageProvider>
+    </body>
     </html>
   );
 }
