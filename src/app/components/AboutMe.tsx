@@ -45,7 +45,7 @@ const AboutMe = () => {
           </div>
         </div>
         <div className={styles.textContent}>
-          <h2 className={styles.title}>{t('about.title')}</h2>
+          <h2 className={homeStyles.title}>{t('about.title')}</h2>
           <p className={styles.description}>
             {t('about.intro')} <span className={homeStyles.highlight}>{t('about.name')}</span>{t('about.location')}<br/>
             {t('about.specialization')} <br/>

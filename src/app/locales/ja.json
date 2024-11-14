@@ -1,8 +1,14 @@
 {
+    "navbar": {
+        "about": "自己紹介",
+        "projects": "プロジェクト",
+        "skills": "スキル",
+        "contact": "ご連絡"
+    },
     "welcome": {
         "greeting": "ようこそ、",
-        "name": "Nickyの空間へ。",
-        "role": "ソフトウェア開発者です",
+        "name": "我がスペースへ。",
+        "role": "ソフトウェア開発者のNicky Jovanusです。",
         "subtitle": "一緒に",
         "highlight": "銀河",
         "cta": "への旅を始めて、最新技術で素晴らしいものを作りましょう。"

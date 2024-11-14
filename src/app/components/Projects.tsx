@@ -1,14 +1,17 @@
 "use client"
 
 import Image from 'next/image';
+import { useTranslation } from '../contexts/LanguageContext';
+import homeStyles from '../styles/Home.module.css'
 import styles from '../styles/Projects.module.css';
 
 const Projects = () => {
+    const { t } = useTranslation();
     return (
         <section id="projects" className={styles.projectsSection}>
             <div style={{ height: '2rem' }} />
             <div className={styles.content}>
-                <h2 className={styles.title}>Projects</h2>
+                <h2 className={homeStyles.title}>Projects</h2>
                 <div className={styles.projectsContainer}>
                     <div className={styles.projectCard}>
                         <div className={styles.projectImageContainer}>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styles from '../styles/Home.module.css';
 import { useTranslation } from '../contexts/LanguageContext';
 import StarsBackground from '../components/StarsBackground';
@@ -14,6 +14,9 @@ const HomePage: React.FC = () => {
   const [scrolling, setScrolling] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  const blackHoleRef = useRef<HTMLVideoElement>(null);
+  const galaxyRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
     setMounted(true);
 
@@ -23,8 +26,31 @@ const HomePage: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            video.play().catch(() => { });
+            console.log('play');
+          } else {
+            video.pause();
+            console.log('pause');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (blackHoleRef.current) observer.observe(blackHoleRef.current);
+    if (galaxyRef.current) observer.observe(galaxyRef.current);
+
+    return () => observer.disconnect();
   }, []);
 
   if (!mounted) {
@@ -34,7 +60,15 @@ const HomePage: React.FC = () => {
   return (
     <div className={`${styles.container} ${scrolling ? styles.scrolling : ''}`}>
       <StarsBackground />
-      <video autoPlay muted loop playsInline preload="auto" className={styles.blackHole}>
+      <video
+        ref={blackHoleRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="none"
+        className={styles.blackHole}
+      >
         <source src="/assets/vid/blackhole.webm" type="video/webm" />
       </video>
       <Navbar />
@@ -52,9 +86,20 @@ const HomePage: React.FC = () => {
         </div>
       </section>
       <AboutMe />
-      <div style={{ height: '5rem' }} />
+      <div style={{ height: '15rem' }} />
+      <video
+        ref={galaxyRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="none"
+        className={styles.galaxy}
+      >
+        <source src="/assets/vid/galaxy.webm" type="video/webm" />
+      </video>
       <Projects />
-      <div style={{ height: '5rem' }} />
+      <div style={{ height: '15rem' }} />
     </div>
   );
 };

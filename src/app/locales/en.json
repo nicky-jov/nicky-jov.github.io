@@ -1,4 +1,10 @@
 {
+    "navbar": {
+        "about": "About",
+        "projects": "Projects",
+        "skills": "Skills",
+        "contact": "Contact"
+    },
     "welcome": {
         "greeting": "Hi, I'm",
         "name": "Nicky",

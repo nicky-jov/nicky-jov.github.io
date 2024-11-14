@@ -20,7 +20,7 @@ type LanguageContextType = {
 
 const LanguageContext = createContext<LanguageContextType>({
   language: 'en',
-  setLanguage: () => {},
+  setLanguage: () => { },
   t: () => '',
 });
 
@@ -48,13 +48,13 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  const t = (key: string) => {
+  const t = (key: string): string => {
     const keys = key.split('.');
-    let value = translations[language];
+    let value: unknown = translations[language];
     for (const k of keys) {
-      value = value?.[k];
+      value = (value as Record<string, unknown>)?.[k];
     }
-    return value || key;
+    return typeof value === 'string' ? value.replace(/\n/g, '<br />') : key;
   };
 
   return (
