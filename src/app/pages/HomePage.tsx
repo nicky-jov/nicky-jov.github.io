@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useRef } from 'react';
 import styles from '../styles/Home.module.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import StarsBackground from '../components/StarsBackground';
 import Welcome from '../components/Welcome';
 import Navbar from '../components/Navbar';
@@ -37,8 +39,6 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     const initAOS = async () => {
-      const AOS = (await import('aos')).default;
-      await import('aos/dist/aos.css');
       AOS.init({
         offset: 200,
         duration: 1000,

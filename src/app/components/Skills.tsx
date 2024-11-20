@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../styles/Skills.module.css';
 import homeStyles from '../styles/Home.module.css';
 import ScrollArrow from './ScrollArrow';
+import Image from 'next/image';
 import { useTranslation } from '../contexts/LanguageContext';
 
 const Skills: React.FC = () => {
@@ -26,7 +27,7 @@ const Skills: React.FC = () => {
         <div className={styles.skillsGrid}>
           {skills.map((skill) => (
             <div key={skill.name} className={styles.skillCard} data-aos="zoom-in" data-aos-duration="200">
-              <img src={skill.logo} alt={`${skill.name} logo`} className={styles.skillLogo} />
+              <Image src={skill.logo} alt={`${skill.name} logo`} className={styles.skillLogo} width={200} height={200} />
               <p className={styles.skillName}>{skill.name}</p>
             </div>
           ))}
