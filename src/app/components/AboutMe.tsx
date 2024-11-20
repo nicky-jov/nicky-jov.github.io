@@ -16,8 +16,7 @@ const AboutMe = () => {
   }, []);
 
   return (
-    <section id="about" className={styles.aboutSection}>
-      <div style={{ height: '2rem' }} />
+    <section id="about" className={`${homeStyles.section} ${styles.aboutSection}`}>
       <div className={`${styles.content} ${isVisible ? styles.visible : ''}`}>
         <div className={styles.profileSection}>
           <div className={styles.imageContainer}>

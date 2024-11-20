@@ -7,11 +7,11 @@ interface ScrollArrowProps {
 
 const ScrollArrow: React.FC<ScrollArrowProps> = ({ targetId }) => {
   const scrollToElement = () => {
-    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+    window.location.href = `#${targetId}`;
   };
 
   return (
-    <div className={styles.arrowContainer} onClick={scrollToElement}>
+    <div className={styles.arrowContainer} onClick={scrollToElement} data-aos="zoom-in" data-aos-offset="120">
       <svg className={`${styles.arrow} ${styles.arrow1}`} viewBox="0 0 24 24" width="24" height="24">
         <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
       </svg>

@@ -20,5 +20,38 @@
         "location": ". A passionate Software Developer based in Indonesia.",
         "specialization": "I specialize in developing exceptional digital experiences.",
         "experience": "With several years of experience in web and game development, I'm always eager to learn new technologies and create innovative solutions."
-    }
+    },
+    "projects": {
+        "title": "Projects",
+        "view": "Click to view the project.",
+        "project 1": {
+            "title": "Hotel Reservation Website",
+            "description": "A sample web application to manage hotel reservations developed using VueJS and Firebase.",
+            "tech": "VueJS, Firebase",
+            "link": "https://pawres-272c5.web.app/index"
+        },
+        "project 2": {
+            "title": "Korean BBQ Restaurant Website",
+            "description": "A sample web application for a Korean BBQ restaurant developed using VueJS and Laravel.",
+            "tech": "VueJS, Laravel",
+            "link": "https://atmakoreanbbq.web.app"
+        },
+        "project 3": {
+            "title": "Open World Sandbox Game",
+            "description": "A simple game project developed using Unreal Engine 5 to showcase features such as MetaHumans, Nanite, Lumen, and more.",
+            "tech": "Unreal Engine 5",
+            "link": ""
+        }
+    },
+  "skills": {
+    "title": "Skills",
+    "languages": [
+      "Unreal C++",
+      "Unity C#",
+      "VueJS",
+      "NextJS",
+      "Laravel PHP",
+      "Kotlin"
+    ]
+  }
 }

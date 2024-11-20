@@ -19,6 +19,39 @@
         "name": "Nicky Jovanus",
         "location": "と申します。インドネシア在住のソフトウェア開発者です。",
         "specialization": "卓越したデジタル体験の開発に特化しています。",
-        "experience": "ウェブとゲーム開発での数年の経験を持ち、新しい技術を学び、革新的なソリューションを生み出すことを常に心がけております。"
-    }
+        "experience": "Webとゲーム開発での数年の経験を持ち、新しい技術を学び、革新的なソリューションを生み出すことを常に心がけております。"
+    },
+    "projects": {
+        "title": "プロジェクト欄",
+        "view": "プロジェクトに移行",
+        "project 1": {
+            "title": "ホテル予約　Webアプリケーション",
+            "description": "VueJSとFirebaseで開発されたホテル予約を管理するサンプルWebアプリケーション。",
+            "tech": "VueJS, Firebase",
+            "link": "https://pawres-272c5.web.app/index"
+        },
+        "project 2": {
+            "title": "韓国料理レストラン　Webアプリケーション",
+            "description": "VueJSとLaravelで開発された韓国料理レストランのサンプルWebアプリケーション。",
+            "tech": "VueJS, Laravel",
+            "link": "https://atmakoreanbbq.web.app"
+        },
+        "project 3": {
+            "title": "オープンワールド・サンドボックス　ゲーム",
+            "description": "Unreal Engine 5で開発されたゲームプロジェクト。MetaHumans、Nanite、Lumenなどの機能を紹介。",
+            "tech": "Unreal Engine 5",
+            "link": ""
+        }
+    },
+  "skills": {
+    "title": "スキル",
+    "languages": [
+      "Unreal C++",
+      "Unity C#",
+      "VueJS",
+      "NextJS",
+      "Laravel PHP",
+      "Kotlin"
+    ]
+  }
 }

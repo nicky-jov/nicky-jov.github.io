@@ -27,6 +27,7 @@ const Navbar = () => {
           href="/"
           className={styles.logo}
           onClick={(e) => {
+            window.location.href = '/#';
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
@@ -34,7 +35,6 @@ const Navbar = () => {
           <svg
             className={styles.logoSvg}
             viewBox="0 0 100 60"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               className={styles.logoPath}
