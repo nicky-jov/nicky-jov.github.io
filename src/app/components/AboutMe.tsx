@@ -43,7 +43,7 @@ const AboutMe = () => {
             />
           </div>
         </div>
-        <div className={styles.textContent}>
+        <div className={styles.textContent} data-aos="zoom-in-up">
           <h2 className={homeStyles.title}>{t('about.title')}</h2>
           <p className={styles.description}>
             {t('about.intro')} <span className={homeStyles.highlight}>{t('about.name')}</span>{t('about.location')}<br/>

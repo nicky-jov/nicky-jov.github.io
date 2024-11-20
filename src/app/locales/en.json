@@ -22,7 +22,7 @@
         "experience": "With several years of experience in web and game development, I'm always eager to learn new technologies and create innovative solutions."
     },
     "projects": {
-        "title": "Projects",
+        "title": "Featured Projects",
         "view": "Click to view the project.",
         "project 1": {
             "title": "Hotel Reservation Website",
@@ -44,7 +44,7 @@
         }
     },
   "skills": {
-    "title": "Skills",
+    "title": "Technical Skills",
     "languages": [
       "Unreal C++",
       "Unity C#",
