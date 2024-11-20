@@ -5,73 +5,69 @@ import { useTranslation } from '../contexts/LanguageContext';
 import homeStyles from '../styles/Home.module.css'
 import styles from '../styles/Projects.module.css';
 import ScrollArrow from './ScrollArrow';
+import config from '../../../next.config';
 
 const Projects = () => {
     const { t } = useTranslation();
-    
+
+    const projects = [
+        {
+            link: t('projects.project 1.link'),
+            imgSrc: `${config.basePath}/assets/img/project-1.png`,
+            imgAlt: "Hotel Reservation Website",
+            title: t('projects.project 1.title'),
+            description: t('projects.project 1.description'),
+            view: t('projects.view')
+        },
+        {
+            link: t('projects.project 2.link'),
+            imgSrc: `${config.basePath}/assets/img/project-2.png`,
+            imgAlt: "Project 2",
+            title: t('projects.project 2.title'),
+            description: t('projects.project 2.description'),
+            view: t('projects.view')
+        },
+        {
+            imgSrc: `${config.basePath}/assets/img/project-3.png`,
+            imgAlt: "Project 3",
+            title: t('projects.project 3.title'),
+            description: t('projects.project 3.description')
+        }
+    ];
+
     return (
         <section id="projects" className={styles.projectsSection}>
             <div className={styles.content}>
                 <h2 className={homeStyles.title}>{t('projects.title')}</h2>
                 <div className={styles.projectsContainer}>
-                    <a href={t('projects.project 1.link')} className={styles.projectCard} target="_blank" rel="noreferrer" data-aos="zoom-out-up">
-                        <div className={styles.projectImageContainer}>
-                            <Image
-                                src="/assets/img/project-1.png"
-                                alt="Hotel Reservation Website"
-                                width={400}
-                                height={300}
-                                className={styles.projectImage}
-                                priority
-                            />
-                        </div>
-                        <div className={styles.projectContent}>
-                            <h3 className={styles.projectTitle}>{t('projects.project 1.title')}</h3>
-                            <p className={styles.projectDescription}>
-                                {t('projects.project 1.description')}
-                                <br/><br/>
-                                {t('projects.view')}
-                            </p>
-                        </div>
-                    </a>
-                    <a href={t('projects.project 2.link')} className={styles.projectCard} target="_blank" rel="noreferrer" data-aos="zoom-out-up">
-                        <div className={styles.projectImageContainer}>
-                            <Image
-                                src="/assets/img/project-2.png"
-                                alt="Project 2"
-                                width={400}
-                                height={300}
-                                className={styles.projectImage}
-                                priority
-                            />
-                        </div>
-                        <div className={styles.projectContent}>
-                            <h3 className={styles.projectTitle}>{t('projects.project 2.title')}</h3>
-                            <p className={styles.projectDescription}>
-                                {t('projects.project 2.description')}
-                                <br/><br/>
-                                {t('projects.view')}
-                            </p>
-                        </div>
-                    </a>
-                    <a className={styles.projectCard} target="_blank" rel="noreferrer" data-aos="zoom-out-up">
-                        <div className={styles.projectImageContainer}>
-                            <Image
-                                src="/assets/img/project-3.png"
-                                alt="Project 3"
-                                width={400}
-                                height={300}
-                                className={styles.projectImage}
-                                priority
-                            />
-                        </div>
-                        <div className={styles.projectContent}>
-                            <h3 className={styles.projectTitle}>{t('projects.project 3.title')}</h3>
-                            <p className={styles.projectDescription}>
-                                {t('projects.project 3.description')}
-                            </p>
-                        </div>
-                    </a>
+                    {projects.map((project, index) => (
+                        <a 
+                            key={index}
+                            className={styles.projectCard} 
+                            target={project.link ? "_blank" : undefined} 
+                            rel={project.link ? "noreferrer" : undefined} 
+                            data-aos="zoom-out-up"
+                            {...(project.link ? { href: project.link } : {})}
+                        >
+                            <div className={styles.projectImageContainer}>
+                                <Image
+                                    src={project.imgSrc}
+                                    alt={project.imgAlt}
+                                    width={400}
+                                    height={300}
+                                    className={styles.projectImage}
+                                    priority
+                                />
+                            </div>
+                            <div className={styles.projectContent}>
+                                <h3 className={styles.projectTitle}>{project.title}</h3>
+                                <p className={styles.projectDescription}>
+                                    {project.description}
+                                    {project.view && <><br/><br/>{project.view}</>}
+                                </p>
+                            </div>
+                        </a>
+                    ))}
                 </div>
                 <ScrollArrow targetId="skills" />
             </div>

@@ -6,6 +6,7 @@ import styles from '../styles/AboutMe.module.css';
 import homeStyles from '../styles/Home.module.css';
 import ScrollArrow from './ScrollArrow';
 import { useTranslation } from '../contexts/LanguageContext';
+import config from '../../../next.config';
 
 const AboutMe = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,7 +23,7 @@ const AboutMe = () => {
           <div className={styles.imageContainer}>
             <div className={styles.telescopeFrame}>
               <Image
-                src="/assets/img/profile-image.jpg"
+                src={`${config.basePath}/assets/img/profile-image.jpg`}
                 alt="Profile Picture"
                 width={300}
                 height={300}
@@ -34,7 +35,7 @@ const AboutMe = () => {
           </div>
           <div className={styles.mapContainer}>
             <Image
-              src="/assets/img/world-map.png"
+              src={`${config.basePath}/assets/img/world-map.png`}
               alt="World Map"
               width={1200}
               height={600}
@@ -46,8 +47,8 @@ const AboutMe = () => {
         <div className={styles.textContent} data-aos="zoom-in-up">
           <h2 className={homeStyles.title}>{t('about.title')}</h2>
           <p className={styles.description}>
-            {t('about.intro')} <span className={homeStyles.highlight}>{t('about.name')}</span>{t('about.location')}<br/>
-            {t('about.specialization')} <br/>
+            {t('about.intro')} <span className={homeStyles.highlight}>{t('about.name')}</span>{t('about.location')}<br />
+            {t('about.specialization')} <br />
             {t('about.experience')}
           </p>
         </div>

@@ -4,19 +4,20 @@ import homeStyles from '../styles/Home.module.css';
 import ScrollArrow from './ScrollArrow';
 import Image from 'next/image';
 import { useTranslation } from '../contexts/LanguageContext';
+import config from '../../../next.config';
 
 const Skills: React.FC = () => {
   const { t } = useTranslation();
 
   const skills = [
-    { name: 'Unreal', logo: '/assets/logo/unreal.png' },
-    { name: 'Unity', logo: '/assets/logo/unity.png' },
-    { name: 'C++', logo: '/assets/logo/cpp.png' },
-    { name: 'C#', logo: '/assets/logo/csharp.png' },
-    { name: 'Vue.js', logo: '/assets/logo/vuejs.png' },
-    { name: 'Next.js', logo: '/assets/logo/nextjs.png' },
-    { name: 'Laravel', logo: '/assets/logo/laravel.png' },
-    { name: 'Kotlin', logo: '/assets/logo/kotlin.png' },
+    { name: 'Unreal', logo: `${config.basePath}/assets/logo/unreal.png` },
+    { name: 'Unity', logo: `${config.basePath}/assets/logo/unity.png` },
+    { name: 'C++', logo: `${config.basePath}/assets/logo/cpp.png` },
+    { name: 'C#', logo: `${config.basePath}/assets/logo/csharp.png` },
+    { name: 'Vue.js', logo: `${config.basePath}/assets/logo/vuejs.png` },
+    { name: 'Next.js', logo: `${config.basePath}/assets/logo/nextjs.png` },
+    { name: 'Laravel', logo: `${config.basePath}/assets/logo/laravel.png` },
+    { name: 'Kotlin', logo: `${config.basePath}/assets/logo/kotlin.png` },
   ];
 
   return (

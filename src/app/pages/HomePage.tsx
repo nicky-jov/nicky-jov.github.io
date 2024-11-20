@@ -10,6 +10,7 @@ import Navbar from '../components/Navbar';
 import AboutMe from '../components/AboutMe';
 import Projects from '../components/Projects';
 import Skills from '../components/Skills';
+import config from '../../../next.config';
 
 const HomePage: React.FC = () => {
   const [mounted, setMounted] = useState(false);
@@ -73,7 +74,7 @@ const HomePage: React.FC = () => {
         autoPlay muted loop playsInline preload="none"
         className={styles.blackHole}
       >
-        <source src="/assets/vid/blackhole.webm" type="video/webm" />
+        <source src={`${config.basePath}/assets/vid/blackhole.webm`} type="video/webm" />
       </video>
       <Navbar />
       <div data-aos="zoom-in-up">
@@ -87,7 +88,7 @@ const HomePage: React.FC = () => {
         autoPlay muted loop playsInline preload="none"
         className={styles.galaxy}
       >
-        <source src="/assets/vid/galaxy.webm" type="video/webm" />
+        <source src={`${config.basePath}/assets/vid/galaxy.webm`} type="video/webm" />
       </video>
       <div data-aos="zoom-in-up">
         <Projects />
@@ -98,7 +99,7 @@ const HomePage: React.FC = () => {
         autoPlay muted loop playsInline preload="none"
         className={styles.earth}
       >
-        <source src="/assets/vid/earth.webm" type="video/webm" />
+        <source src={`${config.basePath}/assets/vid/earth.webm`} type="video/webm" />
       </video>
       <div data-aos="zoom-in-up">
         <Skills />
