@@ -6,6 +6,7 @@ import { useTranslation } from '../contexts/LanguageContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const Contact: React.FC = () => {
   const { t } = useTranslation();
@@ -44,7 +45,7 @@ const Contact: React.FC = () => {
               data-aos="zoom-in"
               data-aos-duration="200"
             >
-              <FontAwesomeIcon icon={contact.icon} className={styles.contactIcon} />
+              <FontAwesomeIcon icon={contact.icon as IconProp} className={styles.contactIcon} />
               <p className={styles.contactName}>{contact.name}</p>
             </a>
           ))}
