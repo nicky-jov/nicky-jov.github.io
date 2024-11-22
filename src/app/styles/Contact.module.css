@@ -1,0 +1,77 @@
+.contactSection {
+  scroll-margin-top: 250px;
+}
+
+.contactContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.contactGrid {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+}
+
+.contactCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  padding: 2rem;
+  background: rgba(13, 17, 23, 0.5);
+  border: 2px solid transparent;
+  transform: translateY(0);
+  border-radius: 15px;
+  transition: all 0.3s ease !important;
+  text-decoration: none;
+  color: white;
+  will-change: transform;
+  backdrop-filter: blur(10px);
+}
+
+.contactCard:hover {
+  transform: translateY(-5px);
+  background: linear-gradient(45deg, #ff6b6b0e, #4ecdc40e);
+  border: 2px solid var(--highlight-color);
+  filter: drop-shadow(0 0 20px #ff6b6b0e);
+}
+
+.contactCard:hover .contactName {
+  color: var(--highlight-color);
+  text-shadow: 0 0 5px var(--highlight-color);
+}
+
+.contactCard:hover .contactIcon {
+  color: var(--highlight-color);
+}
+
+.contactIcon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.contactName {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .contactGrid {
+    gap: 1rem;
+  }
+  
+  .contactCard {
+    padding: 1.5rem;
+  }
+}

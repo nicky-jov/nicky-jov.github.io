@@ -43,15 +43,19 @@
             "link": ""
         }
     },
-  "skills": {
-    "title": "スキル",
-    "languages": [
-      "Unreal C++",
-      "Unity C#",
-      "VueJS",
-      "NextJS",
-      "Laravel PHP",
-      "Kotlin"
-    ]
-  }
+    "skills": {
+        "title": "スキル",
+        "languages": [
+            "Unreal C++",
+            "Unity C#",
+            "VueJS",
+            "NextJS",
+            "Laravel PHP",
+            "Kotlin"
+        ]
+    },
+    "contact": {
+        "title": "ご連絡",
+        "subtitle": "以下のいずれかのプラットフォームを通じてお気軽にご連絡ください。"
+    }
 }

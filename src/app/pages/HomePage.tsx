@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css';
 import cursorStyles from '../styles/Cursor.module.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Image from 'next/image';
 import StarsBackground from '../components/StarsBackground';
 import Welcome from '../components/Welcome';
 import Navbar from '../components/Navbar';
@@ -12,6 +13,7 @@ import AboutMe from '../components/AboutMe';
 import Projects from '../components/Projects';
 import Skills from '../components/Skills';
 import config from '../../../next.config';
+import Contact from '../components/Contact';
 
 const HomePage: React.FC = () => {
   const [mounted, setMounted] = useState(false);
@@ -119,7 +121,10 @@ const HomePage: React.FC = () => {
       <div data-aos="zoom-in-up">
         <Skills />
       </div>
-      <div style={{ height: '200px' }} />
+      <div data-aos="zoom-in-up">
+        <Contact />
+      </div>
+      <Image src={`${config.basePath}/assets/img/mars-surface.jpg`} alt='Mars' className={styles.mars} width={1920} height={800} />
     </div>
   );
 };

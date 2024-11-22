@@ -39,4 +39,8 @@ export interface TranslationSchema {
     title: string;
     languages: string[];
   };
+  contact: {
+    title: string;
+    subtitle: string;
+  };
 }

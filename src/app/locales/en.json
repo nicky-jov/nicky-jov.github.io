@@ -43,15 +43,19 @@
             "link": ""
         }
     },
-  "skills": {
-    "title": "Technical Skills",
-    "languages": [
-      "Unreal C++",
-      "Unity C#",
-      "VueJS",
-      "NextJS",
-      "Laravel PHP",
-      "Kotlin"
-    ]
-  }
+    "skills": {
+        "title": "Technical Skills",
+        "languages": [
+            "Unreal C++",
+            "Unity C#",
+            "VueJS",
+            "NextJS",
+            "Laravel PHP",
+            "Kotlin"
+        ]
+    },
+    "contact": {
+        "title": "Get in Touch",
+        "subtitle": "Feel free to reach out through any of these platforms"
+    }
 }
