@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import styles from '../styles/Home.module.css';
+import cursorStyles from '../styles/Cursor.module.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import StarsBackground from '../components/StarsBackground';
@@ -15,9 +16,18 @@ import config from '../../../next.config';
 const HomePage: React.FC = () => {
   const [mounted, setMounted] = useState(false);
 
+  const cursorRef = useRef<HTMLDivElement>(null);
+
   const blackHoleRef = useRef<HTMLVideoElement>(null);
   const galaxyRef = useRef<HTMLVideoElement>(null);
   const earthRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (cursorRef.current) {
+      cursorRef.current.style.left = `${e.clientX}px`;
+      cursorRef.current.style.top = `${e.clientY}px`;
+    }
+  };
 
   const handleScroll = () => {
     const videos = [blackHoleRef, galaxyRef, earthRef];
@@ -59,8 +69,12 @@ const HomePage: React.FC = () => {
     });
 
     if (typeof window !== 'undefined') {
+      window.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('scroll', handleScroll);
+      }
     }
   }, []);
 
@@ -68,6 +82,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <div ref={cursorRef} className={cursorStyles.customCursor} />
       <StarsBackground />
       <video
         ref={blackHoleRef}

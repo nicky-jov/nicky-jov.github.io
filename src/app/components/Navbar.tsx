@@ -24,7 +24,7 @@ const Navbar = () => {
     <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.leftSection}>
         <Link
-          href="/"
+          href="/#"
           className={styles.logo}
           onClick={(e) => {
             window.location.href = '/#';

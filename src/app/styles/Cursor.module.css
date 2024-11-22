@@ -1,0 +1,50 @@
+.customCursor {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: -999;
+    mix-blend-mode: difference;
+    transition: transform 0.15s ease-out;
+    filter: drop-shadow(0 0 60px rgba(255, 255, 255, 1));
+    transform: translate(-50%, -50%);
+    will-change: transform;
+}
+
+.customCursor::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: -10px;
+    left: -10px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            rgba(255, 255, 255, 0.4) 0%,
+            transparent 70%);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(3);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(5.2);
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: scale(3);
+        opacity: 0.5;
+    }
+}
+
+@media (max-width: 768px) {
+    .customCursor {
+        display: none;
+    }
+}

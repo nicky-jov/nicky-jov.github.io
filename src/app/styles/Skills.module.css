@@ -2,11 +2,9 @@
   display: flex;
   flex-direction: column;
   scroll-margin-top: 250px;
-  scroll-snap-margin-top: 250px;
 
   @media (max-width: 768px) {
     scroll-margin-top: 150px;
-    scroll-snap-margin-top: 150px;
   }
 }
 

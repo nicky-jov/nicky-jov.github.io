@@ -34,7 +34,7 @@ const Skills: React.FC = () => {
           ))}
         </div>
       </div>
-      <ScrollArrow targetId="contacts" />
+      <ScrollArrow targetId="contact" />
     </section>
     </>
   );
