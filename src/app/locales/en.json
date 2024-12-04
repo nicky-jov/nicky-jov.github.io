@@ -41,6 +41,12 @@
             "description": "A simple game project developed using Unreal Engine 5 to showcase features such as MetaHumans, Nanite, Lumen, and more.",
             "tech": "Unreal Engine 5",
             "link": ""
+        },
+        "project 4": {
+            "title": "Kingdom of Glory Church Website",
+            "description": "A website for a church community developed using Next.js and Nest.js.",
+            "tech": "NextJS, NestJS",
+            "link": "https://kingdomofglory.church/"
         }
     },
     "skills": {

@@ -20,8 +20,8 @@ const StarsBackground = () => {
       const { innerWidth, innerHeight } = window;
       
       mousePosition.current = {
-        x: (clientX / innerWidth - 0.5) * 2,
-        y: (clientY / innerHeight - 0.5) * 2
+        x: (clientX / innerWidth) * 2,
+        y: (clientY / innerHeight) * 2
       };
       updateLayers();
     });
@@ -43,8 +43,8 @@ const StarsBackground = () => {
   const updateLayers = useCallback(() => {
     layerRefs.current.forEach((layer, index) => {
       // Reduce strength multipliers
-      const strength = (index + 1) * 5; // Reduced from 10
-      const scrollStrength = (index + 1) * 0.05; // Reduced from 0.1
+      const strength = (index + 1) * 5;
+      const scrollStrength = (index + 1) * 0.5;
 
       // Use translate3d for GPU acceleration
       layer.style.transform = `translate3d(
@@ -55,66 +55,72 @@ const StarsBackground = () => {
     });
   }, []);
 
+  const layers = 3;
+  const starsPerLayer = 30;
+
   // Initial setup
   useEffect(() => {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const layers = 3;
-    const starsPerLayer = 50;
-    const shootingStarCount = 5;
-
     const fragment = document.createDocumentFragment();
 
-    // Create layers
+    const layerContainers: HTMLDivElement[] = [];
+
     for (let layer = 0; layer < layers; layer++) {
       const layerContainer = document.createElement('div');
       layerContainer.className = styles.starLayer;
-      layerContainer.style.cssText = `
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        transform: translate3d(0, 0, 0);
-        will-change: transform;
-        backface-visibility: hidden;
-      `;
+      const layerStyle = layerContainer.style;
 
-      // Create stars
+      layerStyle.position = 'absolute';
+      layerStyle.width = '100%';
+      layerStyle.height = '200%';
+
+      const sizeFactor = 2 - layer * 0.3;
       const starsFragment = document.createDocumentFragment();
+
       for (let i = 0; i < starsPerLayer; i++) {
         const star = document.createElement('div');
-        const size = 0.1 + Math.random() * (2 - layer * 0.3);
+        const starStyle = star.style;
+        const randomValue = Math.random();
 
-        star.className = `${styles.star} ${Math.random() > 0.5 ? styles.twinkle1 : styles.twinkle2}`;
-        star.style.cssText = `
-          left: ${Math.random() * 100}%;
-          top: ${Math.random() * 300}%;
-          width: ${size}px;
-          height: ${size}px;
-          background: rgb(${255 - Math.random() * 30}, ${255 - Math.random() * 30}, ${255});
-          animation-delay: ${Math.random() * 2}s;
-          will-change: opacity, transform;
-        `;
+        const size = 0.1 + randomValue * sizeFactor;
+        const twinkleClass = randomValue > 0.5 ? styles.twinkle1 : styles.twinkle2;
+        const randomLeft = Math.random() * 100;
+        const randomTop = Math.random() * 130;
+
+        star.className = `${styles.star} ${twinkleClass}`;
+
+        starStyle.left = `${randomLeft}%`;
+        starStyle.top = `${randomTop}%`;
+        starStyle.width = `${size}px`;
+        starStyle.height = `${size}px`;
+        starStyle.willChange = 'opacity, transform';
 
         starsFragment.appendChild(star);
       }
+
       layerContainer.appendChild(starsFragment);
       fragment.appendChild(layerContainer);
-      layerRefs.current.push(layerContainer);
+      layerContainers.push(layerContainer);
     }
+
+    container.innerHTML = '';
+    container.appendChild(fragment);
+    layerRefs.current = layerContainers;
+
+    const shootingStarCount = 5;
 
     // Create shooting stars
     const shootingStarsFragment = document.createDocumentFragment();
     for (let i = 0; i < shootingStarCount; i++) {
       const shootingStar = document.createElement('div');
       shootingStar.className = styles.shootingStar;
-      const rotation = Math.random() * 45;
 
       shootingStar.style.cssText = `
         left: ${Math.random() * 100}%;
         top: ${Math.random() * 100}%;
         animation-delay: ${Math.random() * 5}s;
-        transform: rotate(${rotation}deg);
         box-shadow: 0 0 5px #fff,
                     -5px 0 8px #fff,
                     -10px 0 12px rgba(255,255,255,0.8),
@@ -122,15 +128,12 @@ const StarsBackground = () => {
         width: 3px;
         height: 1px;
         opacity: 0.8;
-        background: linear-gradient(90deg, #fff, transparent);
         will-change: transform, opacity;
       `;
 
       shootingStarsFragment.appendChild(shootingStar);
     }
 
-    container.innerHTML = '';
-    container.appendChild(fragment);
     container.appendChild(shootingStarsFragment);
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });

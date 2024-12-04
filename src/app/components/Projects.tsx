@@ -32,6 +32,14 @@ const Projects = () => {
             imgAlt: "Project 3",
             title: t('projects.project 3.title'),
             description: t('projects.project 3.description')
+        },
+        {
+            link: t('projects.project 4.link'),
+            imgSrc: `${config.basePath}/assets/img/project-4.png`,
+            imgAlt: "Project 4",
+            title: t('projects.project 4.title'),
+            description: t('projects.project 4.description'),
+            view: t('projects.view')
         }
     ];
 

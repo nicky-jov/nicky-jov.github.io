@@ -23,7 +23,7 @@
     },
     "projects": {
         "title": "プロジェクト欄",
-        "view": "プロジェクトに移行",
+        "view": "クリックしてプロジェクトに移行",
         "project 1": {
             "title": "ホテル予約　Webアプリケーション",
             "description": "VueJSとFirebaseで開発されたホテル予約を管理するサンプルWebアプリケーション。",
@@ -41,6 +41,12 @@
             "description": "Unreal Engine 5で開発されたゲームプロジェクト。MetaHumans、Nanite、Lumenなどの機能を紹介。",
             "tech": "Unreal Engine 5",
             "link": ""
+        },
+        "project 4": {
+            "title": "Kingdom of Glory教会Webサイト",
+            "description": "Next.jsとNest.jsで開発された教会コミュニティのWebサイト。",
+            "tech": "NextJS, NestJS",
+            "link": "https://kingdomofglory.church/"
         }
     },
     "skills": {
