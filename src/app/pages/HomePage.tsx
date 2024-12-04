@@ -1,19 +1,20 @@
 "use client";
 
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, Suspense } from 'react';
 import styles from '../styles/Home.module.css';
 import cursorStyles from '../styles/Cursor.module.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Image from 'next/image';
-import StarsBackground from '../components/StarsBackground';
-import Welcome from '../components/Welcome';
-import Navbar from '../components/Navbar';
-import AboutMe from '../components/AboutMe';
-import Projects from '../components/Projects';
-import Skills from '../components/Skills';
 import config from '../../../next.config';
-import Contact from '../components/Contact';
+
+const Welcome = React.lazy(() => import('../components/Welcome'));
+const Navbar = React.lazy(() => import('../components/Navbar'));
+const AboutMe = React.lazy(() => import('../components/AboutMe'));
+const Projects = React.lazy(() => import('../components/Projects'));
+const Skills = React.lazy(() => import('../components/Skills'));
+const Contact = React.lazy(() => import('../components/Contact'));
+const StarsBackground = React.lazy(() => import('../components/StarsBackground'));
 
 const HomePage: React.FC = () => {
   const [mounted, setMounted] = useState(false);
@@ -85,7 +86,9 @@ const HomePage: React.FC = () => {
   return (
     <div className={styles.container}>
       <div ref={cursorRef} className={cursorStyles.customCursor} />
-      <StarsBackground />
+      <Suspense fallback={<></>}>
+        <StarsBackground />
+      </Suspense>
       <video
         ref={blackHoleRef}
         autoPlay muted loop playsInline preload="none"
@@ -93,12 +96,18 @@ const HomePage: React.FC = () => {
       >
         <source src={`${config.basePath}/assets/vid/blackhole.webm`} type="video/webm" />
       </video>
-      <Navbar />
+      <Suspense fallback={<></>}>
+        <Navbar />
+      </Suspense>
       <div data-aos="zoom-in-up">
-        <Welcome mounted={mounted}/>
+        <Suspense fallback={<></>}>
+          <Welcome mounted={mounted}/>
+        </Suspense>
       </div>
       <div data-aos="zoom-in-up">
-        <AboutMe />
+        <Suspense fallback={<></>}>
+          <AboutMe />
+        </Suspense>
       </div>
       <video
         ref={galaxyRef}
@@ -108,7 +117,9 @@ const HomePage: React.FC = () => {
         <source src={`${config.basePath}/assets/vid/galaxy.webm`} type="video/webm" />
       </video>
       <div data-aos="zoom-in-up">
-        <Projects />
+        <Suspense fallback={<></>}>
+          <Projects />
+        </Suspense>
       </div>
       <div style={{ height: '50px' }} />
       <video
@@ -119,10 +130,14 @@ const HomePage: React.FC = () => {
         <source src={`${config.basePath}/assets/vid/earth.webm`} type="video/webm" />
       </video>
       <div data-aos="zoom-in-up">
-        <Skills />
+        <Suspense fallback={<></>}>
+          <Skills />
+        </Suspense>
       </div>
       <div data-aos="zoom-in-up">
-        <Contact />
+        <Suspense fallback={<></>}>
+          <Contact />
+        </Suspense>
       </div>
       <Image src={`${config.basePath}/assets/img/mars-surface.jpg`} alt='Mars' className={styles.mars} width={1920} height={800} />
     </div>
