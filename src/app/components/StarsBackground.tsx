@@ -13,7 +13,7 @@ const StarsBackground: React.FC = () => {
   const updateLayers = useCallback(() => {
     layerRefs.current.forEach((layer, index) => {
       const strength = (index + 1) * 5;
-      const scrollStrength = (index + 1) * 0.5;
+      const scrollStrength = (index + 1) * 0.2;
 
       layer.style.transform = `translate3d(
         ${mousePosition.current.x * strength}px,
@@ -47,7 +47,7 @@ const StarsBackground: React.FC = () => {
   }, [requestUpdate]);
 
   const layers = 3;
-  const starsPerLayer = 40;
+  const starsPerLayer = 90;
 
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -107,7 +107,7 @@ const StarsBackground: React.FC = () => {
   }, []);
 
   const renderShootingStars = useCallback(() => {
-    const shootingStarCount = 3;
+    const shootingStarCount = 10;
 
     return Array.from({ length: shootingStarCount }, (_, i) => (
       <div
