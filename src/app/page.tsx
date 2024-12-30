@@ -1,5 +1,3 @@
-"use server";
-
 import React, { Suspense } from 'react';
 import styles from '@/app/styles/Home.module.css';
 import Image from 'next/image';
