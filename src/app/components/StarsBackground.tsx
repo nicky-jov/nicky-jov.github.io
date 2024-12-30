@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback, memo } from 'react';
+import React, { useEffect, useRef, useCallback, memo, useState } from 'react';
 import styles from '../styles/Home.module.css';
 
 const vertexShaderSource = `
@@ -32,6 +32,7 @@ const StarsBackground: React.FC = () => {
   const layerRefs = useRef<HTMLDivElement[]>([]);
   const animationFrameId = useRef<number | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [windowDimensions, setWindowDimensions] = useState({ width: 1920, height: 1080 });
 
   const updateLayers = useCallback(() => {
     layerRefs.current.forEach((layer, index) => {
@@ -73,6 +74,8 @@ const StarsBackground: React.FC = () => {
   const starsPerLayer = 90;
 
   useEffect(() => {
+    setWindowDimensions({ width: window.innerWidth, height: window.innerHeight });
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
 
@@ -104,7 +107,7 @@ const StarsBackground: React.FC = () => {
     const uTime = gl.getUniformLocation(program, 'u_time');
 
     const stars = [];
-    const staticStarsCount = 500;
+    const staticStarsCount = 1000;
 
     for (let i = 0; i < staticStarsCount; i++) {
       const randomValue = Math.random();
@@ -228,6 +231,7 @@ const StarsBackground: React.FC = () => {
         style={{
           left: `${Math.random() * 100}%`,
           top: `${Math.random() * 100}%`,
+          animationDuration: `${15 + Math.random() * 2}s`,
           animationDelay: `${Math.random() * 5}s`,
           boxShadow: `0 0 5px #fff,
                       -5px 0 8px #fff,
@@ -251,7 +255,12 @@ const StarsBackground: React.FC = () => {
       >
         {renderLayers()}
         {renderShootingStars()}
-        <canvas ref={canvasRef} width={window.innerWidth} height={window.innerHeight} />
+        <canvas
+          className={styles.starsCanvas}
+          ref={canvasRef}
+          width={windowDimensions.width}
+          height={windowDimensions.height}
+        />
       </div>
       <div className={styles.nebula} />
     </>
