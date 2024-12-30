@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef, Suspense } from 'react';
+import React, { useEffect, useState, useRef, Suspense, useCallback } from 'react';
 import styles from '../styles/Home.module.css';
 import cursorStyles from '../styles/Cursor.module.css';
 import AOS from 'aos';
@@ -25,14 +25,14 @@ const HomePage: React.FC = () => {
   const galaxyRef = useRef<HTMLVideoElement>(null);
   const earthRef = useRef<HTMLVideoElement>(null);
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     if (cursorRef.current) {
       cursorRef.current.style.left = `${e.clientX}px`;
       cursorRef.current.style.top = `${e.clientY}px`;
     }
-  };
+  }, []);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const videos = [blackHoleRef, galaxyRef, earthRef];
 
     videos.forEach((videoRef) => {
@@ -49,7 +49,7 @@ const HomePage: React.FC = () => {
         video.pause();
       }
     });
-  };
+  }, []);
 
   useEffect(() => {
     const initAOS = async () => {
@@ -79,7 +79,7 @@ const HomePage: React.FC = () => {
         window.removeEventListener('scroll', handleScroll);
       }
     }
-  }, []);
+  }, [handleMouseMove, handleScroll]);
 
   if (!mounted) return null;
 
@@ -96,13 +96,9 @@ const HomePage: React.FC = () => {
       >
         <source src={`${config.basePath}/assets/vid/blackhole.webm`} type="video/webm" />
       </video>
-      <Suspense fallback={<></>}>
-        <Navbar />
-      </Suspense>
-      <div data-aos="zoom-in-up">
-        <Suspense fallback={<></>}>
-          <Welcome mounted={mounted}/>
-        </Suspense>
+      <Navbar />
+      <div>
+        <Welcome mounted={mounted} />
       </div>
       <div data-aos="zoom-in-up">
         <Suspense fallback={<></>}>
@@ -139,7 +135,16 @@ const HomePage: React.FC = () => {
           <Contact />
         </Suspense>
       </div>
-      <Image src={`${config.basePath}/assets/img/mars-surface.jpg`} alt='Mars' className={styles.mars} width={1920} height={800} />
+      <Suspense fallback={<></>}>
+        <Image
+          src={`${config.basePath}/assets/img/mars-surface.webp`}
+          alt='Mars'
+          className={styles.mars}
+          width={1920}
+          height={800}
+          loading="lazy"
+        />
+      </Suspense>
     </div>
   );
 };
