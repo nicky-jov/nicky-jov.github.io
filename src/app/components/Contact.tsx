@@ -1,4 +1,5 @@
-// components/Contact.tsx 
+"use client"
+
 import React from 'react';
 import styles from '../styles/Contact.module.css';
 import homeStyles from '../styles/Home.module.css';

@@ -208,6 +208,7 @@
   line-height: 1.2;
   margin-bottom: 1rem;
   background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -239,16 +240,14 @@
     to bottom,
     transparent 0%,
     black 45%,
-    black 90%,
-    transparent 100%
+    black 100%
   );
 
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
     black 45%,
-    black 90%,
-    transparent 100%
+    black 100%
   );
 
   @media (max-width: 768px) {

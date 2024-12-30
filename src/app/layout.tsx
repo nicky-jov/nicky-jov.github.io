@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LanguageProvider } from './contexts/LanguageContext';
 import "./globals.css";
+import AOSInitializer from "./components/AOSInitializer";
 
 export const metadata: Metadata = {
   title: "Nicky Jovanus | Portfolio",
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
     <body>
+      <AOSInitializer />
       <LanguageProvider>
         {children}
       </LanguageProvider>

@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import styles from '../styles/Skills.module.css';
 import homeStyles from '../styles/Home.module.css';
