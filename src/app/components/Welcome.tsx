@@ -1,15 +1,10 @@
 "use client"
 
-import { FC } from 'react';
 import homeStyles from '../styles/Home.module.css';
 import { useTranslation } from '../contexts/LanguageContext';
 import ScrollArrow from './ScrollArrow';
 
-interface WelcomeProps {
-  mounted: boolean;
-}
-
-const Welcome: FC<WelcomeProps> = ({ mounted }) => {
+export default function Welcome() {
   const { t } = useTranslation();
 
   return (
@@ -23,10 +18,8 @@ const Welcome: FC<WelcomeProps> = ({ mounted }) => {
         <p className={homeStyles.subtitle}>
           {t('welcome.subtitle')} <span className={homeStyles.highlight}>{t('welcome.highlight')}</span> {t('welcome.cta')} 🚀
         </p>
-        {mounted && <ScrollArrow targetId="about" />}
+        <ScrollArrow targetId="about" />
       </div>
     </section>
   );
-};
-
-export default Welcome;
+}

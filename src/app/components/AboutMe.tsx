@@ -23,7 +23,7 @@ const AboutMe = () => {
           <div className={styles.imageContainer}>
             <div className={styles.telescopeFrame}>
               <Image
-                src={`${config.basePath}/assets/img/profile-image.jpg`}
+                src={`${config.basePath}/assets/img/profile-image.webp`}
                 alt="Profile Picture"
                 width={300}
                 height={300}

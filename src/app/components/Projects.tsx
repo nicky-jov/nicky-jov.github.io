@@ -13,7 +13,7 @@ const Projects = () => {
     const projects = [
         {
             link: t('projects.project 1.link'),
-            imgSrc: `${config.basePath}/assets/img/project-1.png`,
+            imgSrc: `${config.basePath}/assets/img/project-1.webp`,
             imgAlt: "Hotel Reservation Website",
             title: t('projects.project 1.title'),
             description: t('projects.project 1.description'),
@@ -21,21 +21,21 @@ const Projects = () => {
         },
         {
             link: t('projects.project 2.link'),
-            imgSrc: `${config.basePath}/assets/img/project-2.png`,
+            imgSrc: `${config.basePath}/assets/img/project-2.webp`,
             imgAlt: "Project 2",
             title: t('projects.project 2.title'),
             description: t('projects.project 2.description'),
             view: t('projects.view')
         },
         {
-            imgSrc: `${config.basePath}/assets/img/project-3.png`,
+            imgSrc: `${config.basePath}/assets/img/project-3.webp`,
             imgAlt: "Project 3",
             title: t('projects.project 3.title'),
             description: t('projects.project 3.description')
         },
         {
             link: t('projects.project 4.link'),
-            imgSrc: `${config.basePath}/assets/img/project-4.png`,
+            imgSrc: `${config.basePath}/assets/img/project-4.webp`,
             imgAlt: "Project 4",
             title: t('projects.project 4.title'),
             description: t('projects.project 4.description'),

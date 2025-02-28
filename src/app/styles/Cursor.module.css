@@ -1,10 +1,10 @@
 .customCursor {
-    width: 20px;
-    height: 20px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: -999;
+    z-index: 100;
     mix-blend-mode: difference;
     filter: drop-shadow(0 0 60px rgba(255, 255, 255, 1));
     transform: translate(-50%, -50%);
@@ -13,8 +13,8 @@
 .customCursor::after {
     content: '';
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     top: -10px;
     left: -10px;
     border-radius: 50%;
@@ -27,17 +27,17 @@
 @keyframes pulse {
     0% {
         transform: scale(3);
-        opacity: 0.5;
+        opacity: 0.2;
     }
 
     50% {
         transform: scale(5.2);
-        opacity: 0.3;
+        opacity: 0.225;
     }
 
     100% {
         transform: scale(3);
-        opacity: 0.5;
+        opacity: 0.2;
     }
 }
 
