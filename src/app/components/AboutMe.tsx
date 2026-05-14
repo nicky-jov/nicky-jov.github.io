@@ -34,14 +34,14 @@ const AboutMe = () => {
             </div>
           </div>
           <div className={styles.mapContainer}>
-            <Image
-              src={`${config.basePath}/assets/img/world-map.png`}
-              alt="World Map"
-              width={1200}
-              height={600}
-              className={styles.mapImage}
-              priority
-            />
+             <Image
+               src={`${config.basePath}/assets/img/world-map.png`}
+               alt="World Map"
+               width={1200}
+               height={600}
+               className={styles.mapImage}
+               loading="lazy"
+             />
           </div>
         </div>
         <div className={styles.textContent} data-aos="zoom-in-up">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback, memo, useState } from 'react';
+import React, { useEffect, useRef, memo, useMemo, useCallback } from 'react';
 import styles from '../styles/Home.module.css';
 
 const vertexShaderSource = `
@@ -20,61 +20,119 @@ const fragmentShaderSource = `
   varying vec3 v_color;
   uniform float u_time;
   void main() {
-    float twinkle = abs(sin(u_time + gl_FragCoord.x * 0.1 + gl_FragCoord.y * 0.1));
-    gl_FragColor = vec4(v_color * twinkle, 1.0);
+    float twinkle = abs(sin(u_time * 1.5 + gl_FragCoord.x * 0.05 + gl_FragCoord.y * 0.05));
+    gl_FragColor = vec4(v_color * (0.5 + 0.5 * twinkle), 1.0);
   }
 `;
 
-const StarsBackground: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mousePosition = useRef({ x: 0, y: 0 });
-  const scrollPosition = useRef(0);
-  const layerRefs = useRef<HTMLDivElement[]>([]);
-  const animationFrameId = useRef<number | null>(null);
+const FALLING_STAR_COUNT = 1;
+
+const StarsBackground = memo(() => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [windowDimensions, setWindowDimensions] = useState({ width: 1920, height: 1080 });
+  const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const animationFrameRef = useRef<number>(0);
+  const glRef = useRef<WebGLRenderingContext | null>(null);
 
-  const updateLayers = useCallback(() => {
-    layerRefs.current.forEach((layer, index) => {
-      const strength = (index + 1) * 5;
-      const scrollStrength = (index + 1) * 0.2;
+  const mousePos = useRef({ x: 0, y: 0 });
+  const scrollPos = useRef(0);
 
-      layer.style.transform = `translate3d(
-        ${mousePosition.current.x * strength}px,
-        ${mousePosition.current.y * strength - scrollPosition.current * scrollStrength}px,
-        0
-      )`;
-    });
-    animationFrameId.current = null;
+  const starsData = useMemo(() => {
+    const stars = [];
+    for (let i = 0; i < 200; i++) {
+      const isBlue = Math.random() > 0.85;
+      stars.push({
+        x: Math.random() * 2 - 1,
+        y: Math.random() * 2 - 1,
+        size: 0.3 + Math.random() * 1.2,
+        color: isBlue ? [0.7, 0.8, 1.0] : [0.95, 0.95, 1.0],
+      });
+    }
+    return stars;
   }, []);
 
-  const requestUpdate = useCallback(() => {
-    if (animationFrameId.current === null) {
-      animationFrameId.current = requestAnimationFrame(updateLayers);
+  const { layerStars, shootingStars, fallingStars } = useMemo(() => {
+    const layers = [];
+    for (let l = 0; l < 3; l++) {
+      const layerStars = [];
+      for (let i = 0; i < 12; i++) {
+        const randomValue = Math.random();
+        layerStars.push({
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 130}%`,
+          size: 0.1 + randomValue * (1.8 - l * 0.3),
+          twinkle: randomValue > 0.5 ? styles.twinkle1 : styles.twinkle2,
+          duration: `${1.5 + Math.random() * 2}s`,
+          delay: `${Math.random() * 5}s`,
+        });
+      }
+      layers.push(layerStars);
+    }
+
+    const shooting = Array.from({ length: 2 }, () => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      duration: `${8 + Math.random() * 4}s`,
+      delay: `${Math.random() * 12}s`,
+    }));
+
+    const falling = Array.from({ length: FALLING_STAR_COUNT }, (_, i) => ({
+      left: `${Math.random() * 80 + 10}%`,
+      top: `${Math.random() * 60 + 20}%`,
+      duration: `${3 + Math.random() * 2}s`,
+      delay: `${i * 2.5 + Math.random() * 2}s`,
+      angle: 25 + Math.random() * 10,
+    }));
+
+    return { layerStars: layers, shootingStars: shooting, fallingStars: falling };
+  }, []);
+
+  const updateLayers = useCallback(() => {
+    const len = layerRefs.current.length;
+    for (let i = 0; i < len; i++) {
+      const layer = layerRefs.current[i];
+      if (!layer) continue;
+      const strength = (i + 1) * 5;
+      const scrollStrength = (i + 1) * 0.2;
+      layer.style.transform = `translate3d(${mousePos.current.x * strength}px, ${mousePos.current.y * strength - scrollPos.current * scrollStrength}px, 0)`;
+    }
+  }, []);
+
+  const handleMouseMove = useCallback((e: { clientX: number; clientY: number }) => {
+    const { innerWidth, innerHeight } = window;
+    mousePos.current = {
+      x: (e.clientX / innerWidth) * 2 - 1,
+      y: (e.clientY / innerHeight) * 2 - 1,
+    };
+    if (!animationFrameRef.current) {
+      animationFrameRef.current = requestAnimationFrame(() => {
+        updateLayers();
+        animationFrameRef.current = 0;
+      });
     }
   }, [updateLayers]);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    const { clientX, clientY } = e;
-    const { innerWidth, innerHeight } = window;
-
-    mousePosition.current = {
-      x: (clientX / innerWidth) * 2,
-      y: (clientY / innerHeight) * 2,
-    };
-    requestUpdate();
-  }, [requestUpdate]);
-
   const handleScroll = useCallback(() => {
-    scrollPosition.current = window.scrollY;
-    requestUpdate();
-  }, [requestUpdate]);
-
-  const layers = 3;
-  const starsPerLayer = 90;
+    scrollPos.current = window.scrollY;
+    if (!animationFrameRef.current) {
+      animationFrameRef.current = requestAnimationFrame(() => {
+        updateLayers();
+        animationFrameRef.current = 0;
+      });
+    }
+  }, [updateLayers]);
 
   useEffect(() => {
-    setWindowDimensions({ width: window.innerWidth, height: window.innerHeight });
+    const onResize = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+    };
+    onResize();
+    window.addEventListener('resize', onResize, { passive: true });
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -82,47 +140,33 @@ const StarsBackground: React.FC = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const gl = canvas.getContext('webgl');
+    const gl = canvas.getContext('webgl', {
+      alpha: true,
+      antialias: false,
+      powerPreference: 'high-performance',
+    });
     if (!gl) return;
+    glRef.current = gl;
 
-    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
-    if (!vertexShader) return;
-    gl.shaderSource(vertexShader, vertexShaderSource);
-    gl.compileShader(vertexShader);
+    const vs = gl.createShader(gl.VERTEX_SHADER)!;
+    gl.shaderSource(vs, vertexShaderSource);
+    gl.compileShader(vs);
 
-    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-    if (!fragmentShader) return;
-    gl.shaderSource(fragmentShader, fragmentShaderSource);
-    gl.compileShader(fragmentShader);
+    const fs = gl.createShader(gl.FRAGMENT_SHADER)!;
+    gl.shaderSource(fs, fragmentShaderSource);
+    gl.compileShader(fs);
 
-    const program = gl.createProgram();
-    gl.attachShader(program, vertexShader);
-    gl.attachShader(program, fragmentShader);
+    const program = gl.createProgram()!;
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
     gl.linkProgram(program);
     gl.useProgram(program);
 
-    const aPosition = gl.getAttribLocation(program, 'a_position');
-    const aSize = gl.getAttribLocation(program, 'a_size');
-    const aColor = gl.getAttribLocation(program, 'a_color');
-    const uTime = gl.getUniformLocation(program, 'u_time');
+    const positions = new Float32Array(starsData.length * 2);
+    const sizes = new Float32Array(starsData.length);
+    const colors = new Float32Array(starsData.length * 3);
 
-    const stars = [];
-    const staticStarsCount = 1000;
-
-    for (let i = 0; i < staticStarsCount; i++) {
-      const randomValue = Math.random();
-      const size = 0.5;
-      const color = randomValue > 0.2 ? [1.0, 1.0, 1.0] : [0.8, 0.8, 1.0];
-      const x = Math.random() * 2 - 1;
-      const y = Math.random() * 2 - 1;
-      stars.push({ x, y, size, color });
-    }
-
-    const positions = new Float32Array(stars.length * 2);
-    const sizes = new Float32Array(stars.length);
-    const colors = new Float32Array(stars.length * 3);
-
-    stars.forEach((star, i) => {
+    starsData.forEach((star, i) => {
       positions[i * 2] = star.x;
       positions[i * 2 + 1] = star.y;
       sizes[i] = star.size;
@@ -131,140 +175,99 @@ const StarsBackground: React.FC = () => {
       colors[i * 3 + 2] = star.color[2];
     });
 
-    const positionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
-    gl.enableVertexAttribArray(aPosition);
-    gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+    const createBuffer = (data: Float32Array, size: number) => {
+      const buf = gl.createBuffer()!;
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+      const loc = gl.getAttribLocation(program, size === 2 ? 'a_position' : size === 1 ? 'a_size' : 'a_color');
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
+      return buf;
+    };
 
-    const sizeBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, sizeBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, sizes, gl.STATIC_DRAW);
-    gl.enableVertexAttribArray(aSize);
-    gl.vertexAttribPointer(aSize, 1, gl.FLOAT, false, 0, 0);
+    createBuffer(positions, 2);
+    createBuffer(sizes, 1);
+    createBuffer(colors, 3);
 
-    const colorBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, colors, gl.STATIC_DRAW);
-    gl.enableVertexAttribArray(aColor);
-    gl.vertexAttribPointer(aColor, 3, gl.FLOAT, false, 0, 0);
+    const uTime = gl.getUniformLocation(program, 'u_time');
+    gl.clearColor(0, 0, 0, 0);
 
+    let running = true;
     const render = (time: number) => {
+      if (!running) return;
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniform1f(uTime, time * 0.001);
-      gl.drawArrays(gl.POINTS, 0, stars.length);
-      setTimeout(() => requestAnimationFrame(render), 1000 / 15); // 15 FPS
+      gl.drawArrays(gl.POINTS, 0, starsData.length);
+      requestAnimationFrame(render);
     };
-
-    gl.clearColor(0.0, 0.0, 0.0, 0.8);
-    render(0);
+    requestAnimationFrame(render);
 
     return () => {
+      running = false;
+      window.removeEventListener('resize', onResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
-      if (animationFrameId.current !== null) {
-        cancelAnimationFrame(animationFrameId.current);
-      }
-
-      gl.deleteBuffer(positionBuffer);
-      gl.deleteBuffer(sizeBuffer);
-      gl.deleteBuffer(colorBuffer);
-      gl.deleteProgram(program);
-      gl.deleteShader(vertexShader);
-      gl.deleteShader(fragmentShader);
+      cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [handleMouseMove, handleScroll]);
+  }, [starsData, handleMouseMove, handleScroll]);
 
-  const renderLayers = useCallback(() => {
-    return Array.from({ length: layers }, (_, layer) => {
-      const stars = Array.from({ length: starsPerLayer }, (_, i) => {
-        const randomValue = Math.random();
-        const sizeFactor = 2 - layer * 0.3;
-        const size = 0.1 + randomValue * sizeFactor;
-        const twinkleClass = randomValue > 0.5 ? styles.twinkle1 : styles.twinkle2;
-        const randomLeft = Math.random() * 100;
-        const randomTop = Math.random() * 130;
-
-        return (
-          <div
-            key={`star-${layer}-${i}`}
-            className={`${styles.star} ${twinkleClass}`}
-            style={{
-              left: `${randomLeft}%`,
-              top: `${randomTop}%`,
-              width: `${size}px`,
-              height: `${size}px`,
-              willChange: 'opacity, transform',
-              animationDuration: `${1 + Math.random() * 2}s`,
-              animationDelay: `${Math.random() * 5}s`,
-            }}
-          />
-        );
-      });
-
-      return (
-        <div
-          key={`layer-${layer}`}
-          className={styles.starLayer}
-          ref={(el) => {
-            if (el) layerRefs.current[layer] = el;
-          }}
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '200%',
-          }}
-        >
-          {stars}
+    return (
+      <>
+        <div className={styles.starsContainer}>
+          {layerStars.map((layer, l) => (
+            <div
+              key={l}
+              ref={(el) => { layerRefs.current[l] = el; }}
+              className={styles.starLayer}
+            >
+              {layer.map((star, i) => (
+                <div
+                  key={i}
+                  className={`${styles.star} ${star.twinkle}`}
+                  style={{
+                    left: star.left,
+                    top: star.top,
+                    width: `${star.size}px`,
+                    height: `${star.size}px`,
+                    animationDuration: star.duration,
+                    animationDelay: star.delay,
+                  }}
+                />
+              ))}
+            </div>
+          ))}
+          {shootingStars.map((star, i) => (
+            <div
+              key={i}
+              className={styles.shootingStar}
+              style={{
+                left: star.left,
+                top: star.top,
+                animationDuration: star.duration,
+                animationDelay: star.delay,
+              }}
+            />
+          ))}
+          {fallingStars.map((star, i) => (
+            <div
+              key={i}
+              className={styles.fallingStar}
+              style={{
+                left: star.left,
+                top: star.top,
+                animationDuration: star.duration,
+                animationDelay: star.delay,
+                '--angle': `${star.angle}deg`,
+              } as React.CSSProperties}
+            />
+          ))}
+          <canvas ref={canvasRef} className={styles.starsCanvas} />
         </div>
-      );
-    });
-  }, []);
+        <div className={styles.nebula} />
+      </>
+    );
+});
 
-  const renderShootingStars = useCallback(() => {
-    const shootingStarCount = 10;
+StarsBackground.displayName = 'StarsBackground';
 
-    return Array.from({ length: shootingStarCount }, (_, i) => (
-      <div
-        key={`shooting-star-${i}`}
-        className={styles.shootingStar}
-        style={{
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          animationDuration: `${15 + Math.random() * 2}s`,
-          animationDelay: `${Math.random() * 5}s`,
-          boxShadow: `0 0 5px #fff,
-                      -5px 0 8px #fff,
-                      -10px 0 12px rgba(255,255,255,0.8),
-                      -15px 0 15px rgba(255,255,255,0.6)`,
-          width: '3px',
-          height: '1px',
-          opacity: 0.8,
-          willChange: 'transform, opacity',
-        }}
-      />
-    ));
-  }, []);
-
-  return (
-    <>
-      <div
-        ref={containerRef}
-        className={styles.starsContainer}
-        style={{ willChange: 'transform' }}
-      >
-        {renderLayers()}
-        {renderShootingStars()}
-        <canvas
-          className={styles.starsCanvas}
-          ref={canvasRef}
-          width={windowDimensions.width}
-          height={windowDimensions.height}
-        />
-      </div>
-      <div className={styles.nebula} />
-    </>
-  );
-};
-
-export default memo(StarsBackground);
+export default StarsBackground;

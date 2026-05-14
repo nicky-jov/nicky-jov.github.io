@@ -10,16 +10,25 @@
   --highlight-color: #4ecdc4;
 }
 
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-quattrocento), sans-serif;
+  overflow-y: scroll;
+}
+
 @font-face {
   font-family: 'QuattrocentoSans';
   font-weight: 400;
   src: url('./fonts/QuattrocentoSans-Regular.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'QuattrocentoSans';
   font-weight: 700;
   src: url('./fonts/QuattrocentoSans-Bold.ttf') format('truetype');
+  font-display: swap;
 }
 
 /* @media (prefers-color-scheme: dark) {

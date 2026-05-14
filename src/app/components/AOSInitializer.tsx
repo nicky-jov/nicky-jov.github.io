@@ -9,8 +9,8 @@ export default function AOSInitializer() {
         AOS.init({
             offset: 200,
             duration: 1000,
-            once: false,
-            mirror: true
+            once: true,
+            mirror: false
         });
     }, []);
 

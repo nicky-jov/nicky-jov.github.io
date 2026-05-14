@@ -74,14 +74,14 @@ const Projects = () => {
                             {...(project.link ? { href: project.link } : {})}
                         >
                             <div className={styles.projectImageContainer}>
-                                <Image
-                                    src={project.imgSrc}
-                                    alt={project.imgAlt}
-                                    width={400}
-                                    height={300}
-                                    className={styles.projectImage}
-                                    priority
-                                />
+                                 <Image
+                                     src={project.imgSrc}
+                                     alt={project.imgAlt}
+                                     width={400}
+                                     height={300}
+                                     className={styles.projectImage}
+                                     loading="lazy"
+                                 />
                             </div>
                             <div className={styles.projectContent}>
                                 <h3 className={styles.projectTitle}>{project.title}</h3>
