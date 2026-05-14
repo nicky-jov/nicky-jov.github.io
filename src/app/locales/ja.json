@@ -47,6 +47,18 @@
             "description": "Next.jsとNest.jsで開発された教会コミュニティのWebサイト。",
             "tech": "NextJS, NestJS",
             "link": "https://kingdomofglory.church/"
+        },
+        "project 5": {
+            "title": "魚の生活",
+            "description": "プレイヤーが水中生態系を探索し、様々な魚種を発見するRobloxゲーム。",
+            "tech": "Roblox, Lua",
+            "link": "https://www.roblox.com/games/104751922504073/Fish-Life"
+        },
+        "project 6": {
+            "title": "Brainrot スキー",
+            "description": "プレイヤーが障害物を避けながら斜面を滑り降りるRobloxゲーム。",
+            "tech": "Roblox, Lua",
+            "link": "https://www.roblox.com/games/124461532102921/Ski-Down-for-Brainrot"
         }
     },
     "skills": {

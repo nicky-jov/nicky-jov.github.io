@@ -40,6 +40,22 @@ const Projects = () => {
             title: t('projects.project 4.title'),
             description: t('projects.project 4.description'),
             view: t('projects.view')
+        },
+        {
+            link: t('projects.project 5.link'),
+            imgSrc: `${config.basePath}/assets/img/project-5.webp`,
+            imgAlt: "Fish Life",
+            title: t('projects.project 5.title'),
+            description: t('projects.project 5.description'),
+            view: t('projects.view')
+        },
+        {
+            link: t('projects.project 6.link'),
+            imgSrc: `${config.basePath}/assets/img/project-6.webp`,
+            imgAlt: "Ski Down for Brainrot",
+            title: t('projects.project 6.title'),
+            description: t('projects.project 6.description'),
+            view: t('projects.view')
         }
     ];
 
