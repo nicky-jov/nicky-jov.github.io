@@ -20,6 +20,8 @@ const Skills: React.FC = () => {
     { name: 'Next.js', logo: `${config.basePath}/assets/logo/nextjs.png` },
     { name: 'Laravel', logo: `${config.basePath}/assets/logo/laravel.png` },
     { name: 'Kotlin', logo: `${config.basePath}/assets/logo/kotlin.png` },
+    { name: 'Roblox', logo: `${config.basePath}/assets/logo/roblox.png` },
+    { name: 'Lua', logo: `${config.basePath}/assets/logo/lua.png` },
   ];
 
   return (
