@@ -54,12 +54,12 @@ const StarsBackground = memo(() => {
     const layers = [];
     for (let l = 0; l < 3; l++) {
       const layerStars = [];
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 80; i++) {
         const randomValue = Math.random();
         layerStars.push({
           left: `${Math.random() * 100}%`,
           top: `${Math.random() * 130}%`,
-          size: 0.1 + randomValue * (1.8 - l * 0.3),
+          size: 0.5 + randomValue * (2.5 - l * 0.4),
           twinkle: randomValue > 0.5 ? styles.twinkle1 : styles.twinkle2,
           duration: `${1.5 + Math.random() * 2}s`,
           delay: `${Math.random() * 5}s`,
@@ -91,7 +91,7 @@ const StarsBackground = memo(() => {
     for (let i = 0; i < len; i++) {
       const layer = layerRefs.current[i];
       if (!layer) continue;
-      const strength = (i + 1) * 5;
+      const strength = (i + 1) * 20;
       const scrollStrength = (i + 1) * 0.2;
       layer.style.transform = `translate3d(${mousePos.current.x * strength}px, ${mousePos.current.y * strength - scrollPos.current * scrollStrength}px, 0)`;
     }
@@ -134,8 +134,10 @@ const StarsBackground = memo(() => {
     onResize();
     window.addEventListener('resize', onResize, { passive: true });
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    if (window.matchMedia('(pointer: fine)').matches) {
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
 
     const canvas = canvasRef.current;
     if (!canvas) return;

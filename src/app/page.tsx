@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import styles from '@/app/styles/Home.module.css';
 import Image from 'next/image';
 import config from '../../next.config';
@@ -8,10 +9,10 @@ import Welcome from './components/Welcome';
 import Navbar from './components/Navbar';
 import StarsBackground from './components/StarsBackground';
 
-const AboutMe = React.lazy(() => import('./components/AboutMe'));
-const Projects = React.lazy(() => import('./components/Projects'));
-const Skills = React.lazy(() => import('./components/Skills'));
-const Contact = React.lazy(() => import('./components/Contact'));
+const AboutMe = dynamic(() => import('./components/AboutMe'), { ssr: true });
+const Projects = dynamic(() => import('./components/Projects'), { ssr: true });
+const Skills = dynamic(() => import('./components/Skills'), { ssr: true });
+const Contact = dynamic(() => import('./components/Contact'), { ssr: true });
 
 const HomePage: React.FC = () => {
   return (
@@ -23,48 +24,48 @@ const HomePage: React.FC = () => {
         className={styles.blackHole} 
       />
       <Navbar />
-      <div>
+
+      <div className={styles.hero}>
         <Welcome />
       </div>
-      <div data-aos="zoom-in-up">
-        <Suspense fallback={<></>}>
-          <AboutMe />
-        </Suspense>
-      </div>
+
+      <Suspense fallback={<div style={{ height: '100vh' }} />}>
+        <AboutMe />
+      </Suspense>
+
       <SmartVideo 
         src={`${config.basePath}/assets/vid/galaxy.webm`} 
         className={styles.galaxy} 
       />
-      <div data-aos="zoom-in-up">
-        <Suspense fallback={<></>}>
-          <Projects />
-        </Suspense>
-      </div>
+
+      <Suspense fallback={<div style={{ height: '100vh' }} />}>
+        <Projects />
+      </Suspense>
+
       <div style={{ height: '50px' }} />
+
       <SmartVideo 
         src={`${config.basePath}/assets/vid/earth.webm`} 
         className={styles.earth} 
       />
-      <div data-aos="zoom-in-up">
-        <Suspense fallback={<></>}>
-          <Skills />
-        </Suspense>
-      </div>
-      <div data-aos="zoom-in-up">
-        <Suspense fallback={<></>}>
-          <Contact />
-        </Suspense>
-      </div>
-      <Suspense fallback={<></>}>
-        <Image
-          src={`${config.basePath}/assets/img/mars-surface.webp`}
-          alt='Mars'
-          className={styles.mars}
-          width={1920}
-          height={800}
-          loading="lazy"
-        />
+
+      <Suspense fallback={<div style={{ height: '100vh' }} />}>
+        <Skills />
       </Suspense>
+
+      <Suspense fallback={<div style={{ height: '100vh' }} />}>
+        <Contact />
+      </Suspense>
+
+      <Image
+        src={`${config.basePath}/assets/img/mars-surface.webp`}
+        alt='Mars'
+        className={styles.mars}
+        width={1920}
+        height={800}
+        loading="lazy"
+        priority={false}
+      />
     </div>
   );
 };
